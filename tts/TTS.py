@@ -1,6 +1,11 @@
 import pyttsx3
 
-def text_to_speech(input_text):
-    engine = pyttsx3.init()
-    engine.say(input_text)
-    engine.runAndWait()
+
+while 0 == 0:
+    def text_to_speech():
+         speech = input("What do you want to be said?: ")
+         engine = pyttsx3.init()
+         engine.say(speech)
+         engine.runAndWait()
+
+    text_to_speech()
