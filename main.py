@@ -7,9 +7,10 @@ if __name__ == "__main__":
     while True:
         _, image = camera.read()
         cv.imshow("The WatchMan [Prototype]", image)
-        if cv.waitKey(1) == 32:
+        last_key = cv.waitKey(1)
+        if last_key == 32:
             TTS.text_to_speech(gpt.scan(camera, True))
-        if cv.waitKey(1) == ord('q'):
+        if last_key == ord('q'):
             break
     camera.release()
     cv.destroyAllWindows()
