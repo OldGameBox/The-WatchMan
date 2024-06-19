@@ -2,9 +2,8 @@ import pyttsx3
 
 
 def text_to_speech(text):
-    speech = input(text)
     engine = pyttsx3.init()
-    engine.say(speech)
+    engine.say(text)
     engine.runAndWait()
 
 
