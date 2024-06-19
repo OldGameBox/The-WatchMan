@@ -9,7 +9,7 @@ headers = {
 }
 
 
-def scan(camera: cv2.VideoCapture, debug: bool = False) -> str:
+def scan(camera: cv2.VideoCapture, debug: bool = False, prompt: str = "You will receive images of different objects. You must identify and describe ONLY THE MAIN OBJECT in the middle of image. Use ONLY around 2-3 sentences. If you cannot identify an object, you MUST ONLY RESPOND: 'IDENT_ERROR'. Start by saying: 'I see...'") -> str:
     _, image = camera.read()
     cv2.imwrite('captured_image.jpg', image)
     response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=generate_payload())
@@ -17,7 +17,7 @@ def scan(camera: cv2.VideoCapture, debug: bool = False) -> str:
     return response.json()['choices'][0]['message']['content']
 
 
-def generate_payload() -> dict:
+def generate_payload(prompt: str) -> dict:
     return {
         "model": "gpt-4o",
         "messages": [
@@ -26,7 +26,7 @@ def generate_payload() -> dict:
                 "content": [
                     {
                         "type": "text",
-                        "text": "You will receive images of different objects. You must identify and describe ONLY THE MAIN OBJECT in the middle of image. Use ONLY around 2-3 sentences. If you cannot identify an object, you MUST ONLY RESPOND: 'IDENT_ERROR'. Start by saying: 'I see...'"
+                        "text": prompt
                     }
                 ]
             },
